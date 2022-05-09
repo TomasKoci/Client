@@ -1,5 +1,5 @@
 <script lang="ts">
-	import axios from "axios";
+	import axios from 'axios';
 	let totaltime = 0;
 	let id = null;
 	let haswon = 0;
@@ -9,10 +9,10 @@
 	let draws = 0;
 
 	import { onDestroy, onMount } from 'svelte';
-	onMount(async()=>{
+	onMount(async () => {
 		id = localStorage.getItem('id');
 		// localStorage.removeItem('id');
-	})
+	});
 
 	async function doFakeGet() {
 		const record = {
@@ -35,16 +35,15 @@
 		};
 		const res = await axios.post('http://localhost:8080/api/Record', record);
 		console.log(res.data.wins);
-		if(id == null){		
-		id = res.data;
-		localStorage.setItem('id', id)
+		if (id == null) {
+			id = res.data;
+			localStorage.setItem('id', id);
 		}
 		wins = res.data.wins;
 		losses = res.data.losses;
 		draws = res.data.draws;
 		// console.log(id);
 	}
-
 
 	// from svelte tutorial
 	import Timer from './Timer.svelte';
@@ -96,7 +95,6 @@
 			aiMove();
 		}
 	};
-
 
 	//looking for all possible wins - it is quite "spaghettious" yet the easiest way
 	function checkForWin() {
@@ -210,7 +208,6 @@
 				>start playing!</button
 			>
 		</div>
-		
 
 		{#if playoptions}
 			<p class="text-white text-4xl p-6 m-6">Play as:</p>
@@ -258,6 +255,7 @@
 			>Play another game</button
 		>
 	</div>
+	<!--
 <br>
 	<div class="grid grid-cols-1 grid-rows-2 w-full">
 		<button on:click={doFakeGet} class="rounded-2xl bg-purple-400 h-10 w-1/3 place-self-center">What are my stats?</button>
@@ -271,8 +269,8 @@
 			</div>
 		{/if}	
 	</div>
-	
- 
+	-->
+
 	{#if !gamedone && play}
 		<Timer callback={handleTick} />
 	{/if}
